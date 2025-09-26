@@ -1,24 +1,28 @@
 export type ScoreBoardProps = {
   correctCount: number
   wrongCount: number
+  skippedCount: number
   total: number
   currentIndex: number
 }
 
-export function ScoreBoard({ correctCount, wrongCount, total, currentIndex }: ScoreBoardProps) {
-  const answeredCount = correctCount + wrongCount
+export function ScoreBoard({ correctCount, wrongCount, skippedCount, total, currentIndex }: ScoreBoardProps) {
+  const answeredCount = correctCount + wrongCount + skippedCount
   const accuracy = total > 0 ? Math.round((correctCount / Math.max(answeredCount, 1)) * 100) : 0
   const progress = total > 0 ? Math.round(((currentIndex) / total) * 100) : 0
 
   return (
     <div className="w-full space-y-3">
       <div className="flex items-center justify-between text-sm sm:text-base">
-        <div className="flex gap-3">
+        <div className="flex gap-2 flex-wrap">
           <span className="inline-flex items-center gap-1 rounded-md bg-green-50 px-2 py-1 text-green-700 ring-1 ring-green-200">
             Aciertos: <strong>{correctCount}</strong>
           </span>
           <span className="inline-flex items-center gap-1 rounded-md bg-rose-50 px-2 py-1 text-rose-700 ring-1 ring-rose-200">
             Errores: <strong>{wrongCount}</strong>
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-md bg-yellow-50 px-2 py-1 text-yellow-700 ring-1 ring-yellow-200">
+            Saltos: <strong>{skippedCount}</strong>
           </span>
         </div>
         <span className="inline-flex items-center gap-1 rounded-md bg-indigo-50 px-2 py-1 text-indigo-700 ring-1 ring-indigo-200">
